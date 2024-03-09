@@ -4,3 +4,10 @@ export interface Promocao {
   imagem: string
   preco: number
 }
+
+export interface Depoimento {
+  id: number
+  texto: string
+  autor: string
+  avatar: number
+}

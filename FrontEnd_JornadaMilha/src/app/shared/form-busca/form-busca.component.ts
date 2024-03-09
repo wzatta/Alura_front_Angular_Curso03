@@ -9,6 +9,7 @@ import { FormBuscaService } from 'src/app/core/services/form-busca.service';
   styleUrls: ['./form-busca.component.scss']
 })
 export class FormBuscaComponent {
+
   constructor(
     public dialog: MatDialog,
     public service:FormBuscaService) {}
@@ -18,4 +19,5 @@ export class FormBuscaComponent {
       width: '50%'
     })
   }
+
 }

@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UnidadeFederativa } from '../types/unidade-federativa';
 import { Observable, shareReplay } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,19 @@ export class UnidadesFederativasService {
   private apiUrl: string = environment.apiUrl;
   private cache$?: Observable<UnidadeFederativa[]>;
 
+  formUF!:FormGroup;
+
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+
+    this.formUF = new FormGroup({
+      origem: new FormControl(),
+      destino: new FormControl()
+
+    })
+
+   }
 
   listar() : Observable<UnidadeFederativa[]>{
     if(!this.cache$){
@@ -24,8 +35,8 @@ export class UnidadesFederativasService {
   }
 
   private requestEstados(): Observable<UnidadeFederativa[]>{
-    url : `${this.apiUrl}/estados`;
-    return this.http.get<UnidadeFederativa[]>('url');
+    let urlApi: string = `${this.apiUrl}/estados`;
+    return this.http.get<UnidadeFederativa[]>(urlApi);
   }
 
 }

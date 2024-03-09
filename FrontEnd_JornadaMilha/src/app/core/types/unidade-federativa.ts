@@ -1,5 +1,5 @@
 export interface UnidadeFederativa {
+  id:number;
+  nome: string;
   sigla: string;
-  descricao: string;
-  regiao:string
-}
+  }
