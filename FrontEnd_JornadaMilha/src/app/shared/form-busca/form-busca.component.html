@@ -1,5 +1,5 @@
 <app-card variant="secondary" class="form-busca">
-  <form [formGroup]="service.formBusca">
+  <form [formGroup]="service.formBusca" (ngSubmit)="buscar()" >
     <h2>Passagens</h2>
     <div class="flex-container">
 
@@ -15,11 +15,18 @@
         </mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-chip-listbox (click)="openDialog()" aria-label="Seleção de passagens">
-        <mat-chip-option selected>1 adulto</mat-chip-option>
-        <mat-chip-option>Econômica</mat-chip-option>
-      </mat-chip-listbox>
-    </div>
+    <mat-chip (click)=service.openDialog()>
+      <div class="inner">
+        <mat-icon>check</mat-icon>{{ service.getDescricaoPassageiros() }}
+      </div>
+    </mat-chip>
+    <mat-chip (click)=service.openDialog()>
+      <div class="inner">
+        <mat-icon>check</mat-icon>{{ service.obterControle('tipo').value }}
+      </div>
+    </mat-chip>
+
+  </div>
 
     <div class="flex-container">
       <app-dropdown-uf
@@ -28,7 +35,7 @@
       [control]="service.obterControle('origem')">
     </app-dropdown-uf>
 
-      <button mat-icon-button>
+      <button mat-icon-button (click)="service.trocarOrigemDestino()">
         <mat-icon>sync_alt</mat-icon>
       </button>
 
@@ -40,14 +47,14 @@
 
       <mat-form-field class="input-container" appearance="outline">
         <mat-label>Data de ida</mat-label>
-        <input matInput [matDatepicker]="ida">
+        <input matInput [matDatepicker]="ida" [formControl]="service.obterControle('dataIda')">
         <mat-datepicker-toggle matIconSuffix [for]="ida"></mat-datepicker-toggle>
         <mat-datepicker #ida></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="input-container" appearance="outline">
         <mat-label>Data da volta</mat-label>
-        <input matInput [matDatepicker]="volta">
+        <input matInput [matDatepicker]="volta" [formControl]="service.obterControle('dataRetorno')">
         <mat-datepicker-toggle matIconSuffix [for]="volta"></mat-datepicker-toggle>
         <mat-datepicker #volta></mat-datepicker>
       </mat-form-field>
